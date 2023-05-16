@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>@axlcrvz</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      background-color: #191919;
+      color: white;
+      font-family: "Roboto", sans-serif;
+    }
+
+    .gold-button {
+      background-color: #D6BD68;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .gold-button:hover {
+      background-color: goldenrod;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    h1, h2, p, iframe {
+      text-align: center;
+      margin: 10px auto;
+      display: block;
+    }
+
+    p {
+      margin-bottom: 30px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .social-media-icons {
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .social-media-icons li {
+      margin-right: 10px;
+      font-size: 24px;
+    }
+
+    .social-media-icons li a {
+      color: white;
+    }
+
+    iframe {
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>@axlcrvz</h1>
+  <p>music producer</p>
+
+
+  <h2>Beats</h2>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/P7X-siUejpQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  <div class="button-container">
+    <button class="gold-button">Yellow Button</button>
+  </div>
+
+  <h2>Loop Kit</h2>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/29m7y3GaBm4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  <div class="button-container">
+    <button class="gold-button">Yellow Button</button>
+  </div>
+
+  <h2>Credits</h2>
+  <iframe src="https://open.spotify.com/embed/playlist/4v0XbpJbXsgPXzanIOo1yQ" width="560" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+  <h2>Contact</h2>
+  <footer>
+    <ul class="social-media-icons">
+      <li><a href="https://instagram.com/axlcrvz"><i class="fab fa-instagram"></i></a></li>
+      <li><a href="https://twitter.com/axlcrvz"><i class="fab fa-twitter"></i></a></li>
+      <li><a href="mailto:axlcrvz@proton.me"><i class="far fa-envelope"></i></a></li>
+      <li><a href="http://wa.me/528334416112"><i class="fab fa-whatsapp"></i></a></li>
+      <li><a href="https://t.me/axlcrvz"><i class="fab fa-telegram"></i></a></li>
