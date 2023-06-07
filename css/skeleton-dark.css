@@ -109,6 +109,13 @@ h1 {
   line-height: 64px;
   letter-spacing: 0;
 }
+h2 {
+  font-size: 32px;
+  line-height: 48px;
+  font-weight: 600;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
 
 /* Larger than phablet */
 @media (min-width: 550px) {
