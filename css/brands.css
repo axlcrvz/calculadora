@@ -86,6 +86,15 @@ button:hover,
 .button.button-default:focus {
   filter: brightness(90%);
 }
+/* Proton */
+.button.button-proton {
+  color: #ffffff;
+  background-color: #8a90c7;
+}
+.button.button-proton:hover,
+.button.button-proton:focus {
+  filter: brightness(90%);
+}
 
 /* Amazon */
 .button.button-amazon {
