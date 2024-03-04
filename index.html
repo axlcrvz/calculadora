@@ -1,115 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Calculator Website</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
+      #total {
+        color: white;
+        background-color: green;
+        padding: 10px;
+        display: inline-block;
+      }
 
-        #calculator {
-            width: 100%;
-            text-align: center;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
 
-        #inputNumber {
-            width: 300px; /* Adjust the width as needed */
-            height: 60px; /* Adjust the height as needed */
-            font-size: 16px; /* Adjust the font size as needed */
-        }
+      #calculator {
+        width: 100%;
+        text-align: center;
+      }
 
-        #rectangles {
-            text-align: center;
-            margin-top: 20px;
-        }
+      #inputNumber {
+        width: 300px;
+        /* Adjust the width as needed */
+        height: 60px;
+        /* Adjust the height as needed */
+        font-size: 16px;
+        /* Adjust the font size as needed */
+      }
 
-        .rectangle-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+      #rectangles {
+        text-align: center;
+        margin-top: 20px;
+      }
 
-        .rectangle {
-            width: 150px;
-            height: 50px;
-            margin: 5px;
-            text-align: center;
-            line-height: 50px;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            overflow: hidden;
-            white-space: nowrap;
-        }
+      .rectangle-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
 
-        #output {
-            margin-top: 20px;
-        }
+      .rectangle {
+        width: 150px;
+        height: 50px;
+        margin: 5px;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      #output {
+        margin-top: 20px;
+      }
     </style>
-</head>
-
-<body>
-
+  </head>
+  <body>
     <div id="calculator">
-        <h2>Calculadora</h2>
-        <input type="tel" id="inputNumber" placeholder="Cantidad" pattern="[0-9]*" oninput="checkInput()">
+      <h2>Calculadora</h2>
+      <input type="tel" id="inputNumber" placeholder="Cantidad" pattern="[0-9]*" oninput="checkInput()">
     </div>
-
     <div id="rectangles">
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Taco de pibil / Gordita de carne', 19)">T. Pibil / G. Carne</div>
-            <div class="rectangle" onclick="calculateTotal('Gordita de guiso', 17)">Gordita de guiso</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Bocol de carne', 22)">Bocol de carne</div>
-            <div class="rectangle" onclick="calculateTotal('Bocol de guiso', 20)">Bocol de guiso</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Torta / enchiladas', 80)">Torta / enchiladas</div>
-            <div class="rectangle" onclick="calculateTotal('Pemoles / rosquitas / campechanas', 50)">Pemoles</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Refresco / avia', 35)">Refresco / avia</div>
-            <div class="rectangle" onclick="calculateTotal('Agua Natural / cafe', 25)">A. Natural / cafe</div>
-        </div>
+      <div class="rectangle-container">
+        <div class="rectangle" onclick="calculateTotal('Taco de pibil / Gordita de carne', 19)">T. Pibil / G. Carne</div>
+        <div class="rectangle" onclick="calculateTotal('Gordita de guiso', 17)">Gordita de guiso</div>
+      </div>
+      <div class="rectangle-container">
+        <div class="rectangle" onclick="calculateTotal('Bocol de carne', 22)">Bocol de carne</div>
+        <div class="rectangle" onclick="calculateTotal('Bocol de guiso', 20)">Bocol de guiso</div>
+      </div>
+      <div class="rectangle-container">
+        <div class="rectangle" onclick="calculateTotal('Torta / enchiladas', 80)">Torta / enchiladas</div>
+        <div class="rectangle" onclick="calculateTotal('Pemoles / rosquitas / campechanas', 50)">Pemoles</div>
+      </div>
+      <div class="rectangle-container">
+        <div class="rectangle" onclick="calculateTotal('Refresco / avia', 35)">Refresco / avia</div>
+        <div class="rectangle" onclick="calculateTotal('Agua Natural / cafe', 25)">A. Natural / cafe</div>
+      </div>
     </div>
-
     <div id="output">
-        <h2>Cuenta</h2>
-        <ul id="outputList"></ul>
-        <p id="total">Total: 0</p>
+      <h2>Cuenta</h2>
+      <ul id="outputList"></ul>
+      <p id="total">Total: 0</p>
     </div>
-
     <script>
-        let total = 0;
+      let total = 0;
 
-        function calculateTotal(itemName, multiplier) {
-            const inputNumber = document.getElementById('inputNumber');
-            const inputValue = parseFloat(inputNumber.value);
-            const itemTotal = inputValue * multiplier;
+      function calculateTotal(itemName, multiplier) {
+        const inputNumber = document.getElementById('inputNumber');
+        const inputValue = parseFloat(inputNumber.value);
+        const itemTotal = inputValue * multiplier;
+        total += itemTotal;
+        const outputList = document.getElementById('outputList');
+        const listItem = document.createElement('li');
+        listItem.textContent = `${itemName} (${inputValue}): ${itemTotal.toFixed(2)}`;
+        outputList.appendChild(listItem);
+        document.getElementById('total').textContent = `Total: ${total.toFixed(2)}`;
+        // Clear the input box
+        inputNumber.value = '';
+      }
 
-            total += itemTotal;
-
-            const outputList = document.getElementById('outputList');
-            const listItem = document.createElement('li');
-            listItem.textContent = `${itemName} (${inputValue}): ${itemTotal.toFixed(2)}`;
-            outputList.appendChild(listItem);
-
-            document.getElementById('total').textContent = `Total: ${total.toFixed(2)}`;
-
-            // Clear the input box
-            inputNumber.value = '';
+      function checkInput() {
+        const inputNumber = document.getElementById('inputNumber');
+        if (inputNumber.value < 0) {
+          inputNumber.value = 0;
         }
-
-        function checkInput() {
-            const inputNumber = document.getElementById('inputNumber');
-            if (inputNumber.value < 0) {
-                inputNumber.value = 0;
-            }
-        }
+      }
     </script>
 
 </body>
