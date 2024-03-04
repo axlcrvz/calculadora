@@ -24,11 +24,8 @@
 
       #inputNumber {
         width: 300px;
-        /* Adjust the width as needed */
         height: 60px;
-        /* Adjust the height as needed */
         font-size: 16px;
-        /* Adjust the font size as needed */
       }
 
       #rectangles {
@@ -85,21 +82,25 @@
     <div id="output">
       <h2>Cuenta</h2>
       <ul id="outputList"></ul>
-      <p id="total">Total: 0</p>
+      <p id="total">Total: $0.00</p>
     </div>
     <script>
       let total = 0;
 
       function calculateTotal(itemName, multiplier) {
         const inputNumber = document.getElementById('inputNumber');
-        const inputValue = parseFloat(inputNumber.value);
+        let inputValue = parseFloat(inputNumber.value);
+        // Set default value to 1 if no number is detected
+        if (isNaN(inputValue) || inputValue <= 0) {
+          inputValue = 1;
+        }
         const itemTotal = inputValue * multiplier;
         total += itemTotal;
         const outputList = document.getElementById('outputList');
         const listItem = document.createElement('li');
-        listItem.textContent = `${itemName} (${inputValue}): ${itemTotal.toFixed(2)}`;
+        listItem.textContent = `${itemName} ($${inputValue}): $${itemTotal.toFixed(2)}`;
         outputList.appendChild(listItem);
-        document.getElementById('total').textContent = `Total: ${total.toFixed(2)}`;
+        document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
         // Clear the input box
         inputNumber.value = '';
       }
@@ -111,7 +112,5 @@
         }
       }
     </script>
-
-</body>
-
+  </body>
 </html>
