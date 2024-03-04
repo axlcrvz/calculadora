@@ -26,11 +26,11 @@
 
         #logo {
             position: absolute;
-            left: 20px; /* Adjust the left position as needed */
-            top: 20px; /* Adjust the top position as needed */
-            width: 50px; /* Adjust the width of the logo as needed */
-            border-radius: 10px; /* Add rounded corners */
-            margin-right: 20px; /* Add distance between logo and input bar */
+            left: 20px;
+            top: 20px;
+            width: 50px;
+            border-radius: 10px;
+            margin-right: 20px;
         }
 
         #inputNumber {
@@ -60,6 +60,11 @@
             border: 1px solid #ccc;
             overflow: hidden;
             white-space: nowrap;
+            transition: background-color 0.3s ease; /* Add transition for smooth color change */
+        }
+
+        .rectangle.clicked {
+            background-color: lightgreen; /* Change color when clicked */
         }
 
         #output {
@@ -70,7 +75,7 @@
 
 <body>
     <div id="calculator">
-        <img id="logo" src="images/logo.png" alt="Logo"> <!-- Replace "path/to/your/logo.png" with the actual path to your logo -->
+        <img id="logo" src="path/to/your/logo.png" alt="Logo">
         <h2>Calculadora</h2>
         <input type="tel" id="inputNumber" placeholder="Cantidad" pattern="[0-9]*" oninput="checkInput()">
     </div>
@@ -107,7 +112,6 @@
             const inputNumber = document.getElementById('inputNumber');
             let inputValue = parseFloat(inputNumber.value);
 
-            // Set default value to 1 if no number is detected
             if (isNaN(inputValue) || inputValue <= 0) {
                 inputValue = 1;
             }
@@ -123,7 +127,6 @@
 
             document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
 
-            // Clear the input box
             inputNumber.value = '';
         }
 
@@ -133,6 +136,17 @@
                 inputNumber.value = 0;
             }
         }
+
+        const rectangles = document.querySelectorAll('.rectangle');
+
+        rectangles.forEach(rectangle => {
+            rectangle.addEventListener('click', () => {
+                // Remove 'clicked' class from all rectangles
+                rectangles.forEach(r => r.classList.remove('clicked'));
+                // Add 'clicked' class to the clicked rectangle
+                rectangle.classList.add('clicked');
+            });
+        });
     </script>
 </body>
 
