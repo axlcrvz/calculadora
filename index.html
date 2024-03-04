@@ -47,7 +47,7 @@
 
 <div id="calculator">
     <h2>Calculadora</h2>
-    <input type="number" id="inputNumber" placeholder="Cantidad" pattern="[0-9]*" oninput="checkInput()" inputmode="numeric">
+    <input type="text" id="inputNumber" placeholder="Cantidad" pattern="[0-9]*" oninput="checkInput()">
 </div>
 
 <div id="rectangles">
@@ -79,17 +79,21 @@
     let total = 0;
 
     function calculateTotal(itemName, multiplier) {
-        const inputNumber = parseFloat(document.getElementById('inputNumber').value);
-        const itemTotal = inputNumber * multiplier;
+        const inputNumber = document.getElementById('inputNumber');
+        const inputValue = parseFloat(inputNumber.value);
+        const itemTotal = inputValue * multiplier;
 
         total += itemTotal;
 
         const outputList = document.getElementById('outputList');
         const listItem = document.createElement('li');
-        listItem.textContent = `${itemName}: ${itemTotal}`;
+        listItem.textContent = `${itemName}: ${itemTotal.toFixed(2)}`;
         outputList.appendChild(listItem);
 
         document.getElementById('total').textContent = `Total: ${total.toFixed(2)}`;
+
+        // Clear the input box
+        inputNumber.value = '';
     }
 
     function checkInput() {
