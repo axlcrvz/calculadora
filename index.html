@@ -46,31 +46,31 @@
 <body>
 
 <div id="calculator">
-    <h2>Calculator</h2>
-    <input type="text" id="inputNumber" placeholder="Enter a quantity" pattern="[0-9]*" oninput="checkInput()">
+    <h2>Calculadora</h2>
+    <input type="text" id="inputNumber" placeholder="Cantidad" pattern="[0-9]*" oninput="checkInput()">
 </div>
 
 <div id="rectangles">
     <div class="rectangle-container">
-        <div class="rectangle" onclick="calculateTotal('Taco/Gordita de carne', 1)">Taco/Gordita de carne</div>
-        <div class="rectangle" onclick="calculateTotal('Gorditas de guiso', 2)">Gorditas de guiso</div>
+        <div class="rectangle" onclick="calculateTotal('Taco/Gordita de carne', 19)">T. Pibil / G. Carne</div>
+        <div class="rectangle" onclick="calculateTotal('Gorditas de guiso', 17)">Gordita de guiso</div>
     </div>
     <div class="rectangle-container">
-        <div class="rectangle" onclick="calculateTotal('Bocol de carne', 3)">Bocol de carne</div>
-        <div class="rectangle" onclick="calculateTotal('Bocol de guiso', 4)">Bocol de guiso</div>
+        <div class="rectangle" onclick="calculateTotal('Bocol de carne', 22)">Bocol de carne</div>
+        <div class="rectangle" onclick="calculateTotal('Bocol de guiso', 20)">Bocol de guiso</div>
     </div>
     <div class="rectangle-container">
-        <div class="rectangle" onclick="calculateTotal('Torta/enchiladas', 5)">Torta/enchiladas</div>
-        <div class="rectangle" onclick="calculateTotal('Pemoles/rosquitas/campechanas', 6)">Pemoles/rosquitas/campechanas</div>
+        <div class="rectangle" onclick="calculateTotal('Torta/enchiladas', 80)">Torta / enchiladas</div>
+        <div class="rectangle" onclick="calculateTotal('Pemoles/rosquitas/campechanas', 50)">Pemoles</div>
     </div>
     <div class="rectangle-container">
-        <div class="rectangle" onclick="calculateTotal('Refrescos/avia', 7)">Refrescos/avia</div>
-        <div class="rectangle" onclick="calculateTotal('A. Natural/cafe', 8)">A. Natural/cafe</div>
+        <div class="rectangle" onclick="calculateTotal('Refrescos/avia', 35)">Refresco / avia</div>
+        <div class="rectangle" onclick="calculateTotal('A. Natural/cafe', 25)">A. Natural / cafe</div>
     </div>
 </div>
 
 <div id="output">
-    <h2>Output</h2>
+    <h2>Cuenta</h2>
     <ul id="outputList"></ul>
     <p id="total">Total: 0</p>
 </div>
