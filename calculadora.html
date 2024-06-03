@@ -123,8 +123,12 @@
 
         const inputNumber = document.getElementById('inputNumber');
         const inputValue = parseFloat(inputNumber.value);
-        const itemTotal = inputValue * multiplier;
+        if (isNaN(inputValue) || inputValue <= 0) {
+            alert('Por favor, introduzca una cantidad válida.');
+            return;
+        }
 
+        const itemTotal = inputValue * multiplier;
         totals[currentTable] += itemTotal;
 
         const outputList = document.getElementById(`outputList${capitalizeFirstLetter(currentTable)}`);
@@ -136,6 +140,12 @@
 
         // Clear the input box
         inputNumber.value = '';
+
+        // Show the refresh button if not already visible
+        const refreshButton = document.getElementById('refreshButton');
+        if (refreshButton.classList.contains('hidden')) {
+            refreshButton.classList.remove('hidden');
+        }
     }
 
     function checkInput() {
@@ -148,7 +158,16 @@
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
+
+    function refreshPage() {
+        location.reload();
+    }
 </script>
+
+<!-- Refresh button -->
+<div id="refreshButton" class="hidden" style="text-align: center; margin-top: 20px;">
+    <button onclick="refreshPage()">Refrescar Página</button>
+</div>
 
 </body>
 </html>
