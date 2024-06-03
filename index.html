@@ -1,256 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Calculadora Mr. Taco</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/logo.png">
-
-    <style>
-        #total {
-            color: white;
-            background-color: green;
-            padding: 10px;
-            display: inline-block;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        #calculator {
-            width: 100%;
-            text-align: center;
-            position: relative;
-        }
-
-        #logo {
-            position: absolute;
-            left: 10px;
-            top: 10px;
-            width: 50px;
-            border-radius: 10px;
-            margin-right: 20px;
-        }
-
-        #inputNumber {
-            width: 300px;
-            height: 60px;
-            font-size: 16px;
-        }
-
-        #rectangles {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .rectangle-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .rectangle {
-            width: 150px;
-            height: 50px;
-            margin: 5px;
-            text-align: center;
-            line-height: 50px;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            overflow: hidden;
-            white-space: nowrap;
-            transition: background-color 0.3s ease;
-        }
-
-        .rectangle.clicked {
-            background-color: lightgreen;
-            transition: background-color 0.01s ease-out;
-        }
-
-        .close-btn {
-            cursor: pointer;
-            font-weight: bold;
-            color: red;
-            margin-left: 5px;
-            display: inline-block;
-        }
-
-        #output {
-            margin-top: 20px;
-        }
-
-        #priceList {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        #priceList table {
-            margin: 0 auto;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        #priceList th,
-        #priceList td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        #priceList th {
-            background-color: #f2f2f2;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-
-<body>
-    <img id="logo" src="images/logo.png" alt="Logo">
-    <div id="calculator">
-        <h2>Calculadora</h2>
-        <input type="tel" id="inputNumber" placeholder="Cantidad" pattern="[0-9]*" oninput="checkInput()">
-    </div>
-
-    <div id="tables">
-        <h3>Seleccione una mesa</h3>
-        <button onclick="selectTable('table1')">Mesa 1</button>
-        <button onclick="selectTable('table2')">Mesa 2</button>
-        <button onclick="selectTable('table3')">Mesa 3</button>
-    </div>
-
-    <div id="rectangles">
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('T. de pibil / G. de carne', 19)">T. Pibil / G. Carne</div>
-            <div class="rectangle" onclick="calculateTotal('Gordita de guiso', 17)">Gordita de guiso</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Bocol de carne', 22)">Bocol de carne</div>
-            <div class="rectangle" onclick="calculateTotal('Bocol de guiso', 20)">Bocol de guiso</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Torta', 80)">Torta</div>
-            <div class="rectangle" onclick="calculateTotal('Pemoles', 50)">Pemoles</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Refresco / avia', 35)">Refresco / avia</div>
-            <div class="rectangle" onclick="calculateTotal('Agua Natural / cafe', 25)">A. Natural / cafe</div>
-        </div>
-    </div>
-
-    <div id="output">
-        <h2>Cuenta</h2>
-        <div id="table1" class="table-output hidden">
-            <h3>Mesa 1</h3>
-            <ul id="outputListTable1"></ul>
-            <p id="totalTable1">Total: $0.00</p>
-        </div>
-        <div id="table2" class="table-output hidden">
-            <h3>Mesa 2</h3>
-            <ul id="outputListTable2"></ul>
-            <p id="totalTable2">Total: $0.00</p>
-        </div>
-        <div id="table3" class="table-output hidden">
-            <h3>Mesa 3</h3>
-            <ul id="outputListTable3"></ul>
-            <p id="totalTable3">Total: $0.00</p>
-        </div>
-    </div>
-
-    <div id="priceList">
-        <h2>Lista de Precios</h2>
-        <table>
-            <tr>
-                <th>Producto</th>
-                <th>Precio (MXN)</th>
-            </tr>
-            <tr>
-                <td>Taco de pibil</td>
-                <td>$19.00</td>
-            </tr>
-            <tr>
-                <td>Gordita de carne</td>
-                <td>$19.00</td>
-            </tr>
-            <tr>
-                <td>Gordita de guiso</td>
-                <td>$17.00</td>
-            </tr>
-            <tr>
-                <td>Bocol de carne</td>
-                <td>$22.00</td>
-            </tr>
-            <tr>
-                <td>Bocol de guiso</td>
-                <td>$20.00</td>
-            </tr>
-            <tr>
-                <td>Torta</td>
-                <td>$80.00</td>
-            </tr>
-            <tr>
-                <td>Pemoles</td>
-                <td>$50.00</td>
-            </tr>
-            <tr>
-                <td>Refresco / Avia</td>
-                <td>$35.00</td>
-            </tr>
-            <tr>
-                <td>Agua Natural / Cafe</td>
-                <td>$25.00</td>
-            </tr>
-        </table>
-    </div>
-
-    <script>
-        let currentTable = null;
-        const totals = {
-            table1: 0,
-            table2: 0,
-            table3: 0
-        };
-
-        function selectTable(tableId) {
-            currentTable = tableId;
-            document.querySelectorAll('.table-output').forEach(output => {
-                output.classList.add('hidden');
-            });
-            document.getElementById(tableId).classList.remove('hidden');
-        }
-
-        function calculateTotal(itemName, multiplier) {
-            if (!currentTable) {
-                alert('Por favor, seleccione una mesa primero.');
-                return;
-            }
-
-            const inputNumber = document.getElementById('inputNumber');
-            let inputValue = parseFloat(inputNumber.value);
-            if (isNaN(inputValue) || inputValue <= 0) {
-                inputValue = 1;
-            }
-            const itemTotal = inputValue * multiplier;
-            totals[currentTable] += itemTotal;
-
-            const outputList = document.getElementById(`outputList${capitalizeFirstLetter(currentTable)}`);
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `${inputValue} ${itemName}: $${itemTotal.toFixed(2)} <span class="close-btn" onclick="removeItem(this, ${itemTotal.toFixed(2)})">x</span>`;
-            outputList.appendChild(listItem);
-
-            document.getElementById(`total${capitalizeFirstLetter(currentTable)}`).textContent = `Total: $${totals[currentTable].toFixed(2)}`;
-            inputNumber.value = '';
-
-            // Show the refresh button if not already visible
-            const refreshButton = document.getElementById('refreshButton');
-            if (refreshButton.classList.contains('hidden')) {
-                refreshButton.classList.remove('hidden');
+.remove('hidden');
             }
         }
 
@@ -264,36 +12,45 @@
         function removeItem(element, itemTotal) {
             const listItem = element.parentNode;
             totals[currentTable] -= itemTotal;
+
             listItem.remove();
+
             document.getElementById(`total${capitalizeFirstLetter(currentTable)}`).textContent = `Total: $${totals[currentTable].toFixed(2)}`;
         }
 
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
-}
+        }
 
-    function refreshPage() {
-        location.reload();
-    }
+        function refreshPage() {
+            location.reload();
+        }
 
-    const rectangles = document.querySelectorAll('.rectangle');
-    rectangles.forEach(rectangle => {
-        rectangle.addEventListener('click', () => {
-            rectangles.forEach(r => r.classList.remove('clicked'));
-            rectangle.classList.add('clicked');
-            setTimeout(() => {
-                rectangle.classList.remove('clicked');
-            }, 200);
+        function printBill() {
+            window.print();
+        }
+
+        const rectangles = document.querySelectorAll('.rectangle');
+        rectangles.forEach(rectangle => {
+            rectangle.addEventListener('click', () => {
+                rectangles.forEach(r => r.classList.remove('clicked'));
+                rectangle.classList.add('clicked');
+                setTimeout(() => {
+                    rectangle.classList.remove('clicked');
+                }, 200);
+            });
         });
-    });
-</script>
+    </script>
 
-<!-- Refresh button -->
-<div id="refreshButton" class="hidden" style="text-align: center; margin-top: 20px;">
-    <button onclick="refreshPage()">Refrescar Página</button>
-</div>
+    <!-- Refresh button -->
+    <div id="refreshButton" class="hidden" style="text-align: center; margin-top: 20px;">
+        <button onclick="refreshPage()">Refrescar Página</button>
+    </div>
 
+    <!-- Print button -->
+    <div id="printButton" class="hidden" style="text-align: center; margin-top: 20px;">
+        <button onclick="printBill()">Imprimir Cuenta</button>
+    </div>
 </body>
-
 
 </html>
