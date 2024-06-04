@@ -104,6 +104,33 @@
             background-color: #f2f2f2;
         }
 
+        #numPad {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .numPad-row {
+            display: flex;
+        }
+
+        .numPad-btn {
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            font-size: 24px;
+            text-align: center;
+            line-height: 60px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: #f2f2f2;
+            transition: background-color 0.3s ease;
+        }
+
+        .numPad-btn:hover {
+            background-color: #ddd;
+        }
     </style>
 </head>
 
@@ -139,6 +166,28 @@
         </div>
         <div class="rectangle-container">
             <div class="rectangle" data-item="Envio" data-first-km="50" data-extra-km="5">Envio</div>
+        </div>
+    </div>
+    <div id="numPad">
+        <div class="numPad-row">
+            <div class="numPad-btn" onclick="appendNumber(1)">1</div>
+            <div class="numPad-btn" onclick="appendNumber(2)">2</div>
+            <div class="numPad-btn" onclick="appendNumber(3)">3</div>
+        </div>
+        <div class="numPad-row">
+            <div class="numPad-btn" onclick="appendNumber(4)">4</div>
+            <div class="numPad-btn" onclick="appendNumber(5)">5</div>
+            <div class="numPad-btn" onclick="appendNumber(6)">6</div>
+        </div>
+        <div class="numPad-row">
+            <div class="numPad-btn" onclick="appendNumber(7)">7</div>
+            <div class="numPad-btn" onclick="appendNumber(8)">8</div>
+            <div class="numPad-btn" onclick="appendNumber(9)">9</div>
+        </div>
+        <div class="numPad-row">
+            <div class="numPad-btn" onclick="appendNumber(0)">0</div>
+            <div class="numPad-btn" onclick="clearNumber()">C</div>
+            <div class="numPad-btn" onclick="enterNumber()">OK</div>
         </div>
     </div>
     <div id="output">
@@ -208,41 +257,7 @@
     <script>
         let total = 0;
         let selectedItem = null;
-
-        document.getElementById('inputNumber').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                if (selectedItem) {
-                    const inputNumber = document.getElementById('inputNumber');
-                    let inputValue = parseFloat(inputNumber.value);
-                    if (isNaN(inputValue) || inputValue <= 0) {
-                        inputValue = 1;
-                    }
-                    
-                    let itemTotal;
-                    if (selectedItem.name === 'Envio') {
-                        itemTotal = selectedItem.firstKm;
-                        if (inputValue > 1) {
-                            itemTotal += (inputValue - 1) * selectedItem.extraKm;
-                        }
-                    } else {
-                        itemTotal = inputValue * selectedItem.multiplier;
-                    }
-                    
-                    total += itemTotal;
-
-                    const outputList = document.getElementById('outputList');
-                    const listItem = document.createElement('li');
-                    listItem.innerHTML = `${selectedItem.name} (${inputValue}): $${itemTotal.toFixed(2)} <span class="close-btn" onclick="removeItem(this, ${itemTotal.toFixed(2)})">x</span>`;
-                    outputList.appendChild(listItem);
-
-                    document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
-                    inputNumber.value = '';
-                    selectedItem = null;
-                } else {
-                    alert('Por favor, seleccione un producto primero.');
-                }
-            }
-        });
+        let inputBuffer = '';
 
         function checkInput() {
             const inputNumber = document.getElementById('inputNumber');
@@ -261,23 +276,77 @@
         const rectangles = document.querySelectorAll('.rectangle');
         rectangles.forEach(rectangle => {
             rectangle.addEventListener('click', () => {
-                rectangles.forEach(r => r.classList.remove('clicked'));
-                rectangle.classList.add('clicked');
                 const itemName = rectangle.getAttribute('data-item');
                 const firstKm = parseFloat(rectangle.getAttribute('data-first-km'));
                 const extraKm = parseFloat(rectangle.getAttribute('data-extra-km'));
                 const multiplier = parseFloat(rectangle.getAttribute('data-multiplier'));
 
+                const inputNumber = parseFloat(document.getElementById('inputNumber').value);
+                let inputValue = isNaN(inputNumber) || inputNumber <= 0 ? 1 : inputNumber;
+
+                let itemTotal = 0;
+
                 if (itemName === 'Envio') {
-                    selectedItem = { name: itemName, firstKm: firstKm, extraKm: extraKm };
+                    itemTotal = firstKm + (inputValue - 1) * extraKm;
                 } else {
-                    selectedItem = { name: itemName, multiplier: multiplier };
+                    itemTotal = inputValue * multiplier;
                 }
 
+                total += itemTotal;
+
+                const outputList = document.getElementById('outputList');
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${itemName} (${inputValue}): $${itemTotal.toFixed(2)} <span class="close-btn" onclick="removeItem(this, ${itemTotal.toFixed(2)})">x</span>`;
+                outputList.appendChild(listItem);
+
+                document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
                 document.getElementById('inputNumber').value = '';
-                document.getElementById('inputNumber').focus();
             });
         });
+
+        function appendNumber(number) {
+            inputBuffer += number;
+            document.getElementById('inputNumber').value = inputBuffer;
+        }
+
+        function clearNumber() {
+            inputBuffer = '';
+            document.getElementById('inputNumber').value = '';
+        }
+
+        function enterNumber() {
+            const inputNumber = parseFloat(inputBuffer);
+            const selectedItemElement = document.querySelector('.rectangle.clicked');
+            if (selectedItemElement) {
+                const itemName = selectedItemElement.getAttribute('data-item');
+                const firstKm = parseFloat(selectedItemElement.getAttribute('data-first-km'));
+                const extraKm = parseFloat(selectedItemElement.getAttribute('data-extra-km'));
+                const multiplier = parseFloat(selectedItemElement.getAttribute('data-multiplier'));
+
+                let inputValue = isNaN(inputNumber) || inputNumber <= 0 ? 1 : inputNumber;
+
+                let itemTotal = 0;
+
+                if (itemName === 'Envio') {
+                    itemTotal = firstKm + (inputValue - 1) * extraKm;
+                } else {
+                    itemTotal = inputValue * multiplier;
+                }
+
+                total += itemTotal;
+
+                const outputList = document.getElementById('outputList');
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `${itemName} (${inputValue}): $${itemTotal.toFixed(2)} <span class="close-btn" onclick="removeItem(this, ${itemTotal.toFixed(2)})">x</span>`;
+                outputList.appendChild(listItem);
+
+                document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+                inputBuffer = '';
+                document.getElementById('inputNumber').value = '';
+            } else {
+                alert('Por favor, seleccione un producto primero.');
+            }
+        }
     </script>
 </body>
 
