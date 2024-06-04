@@ -115,27 +115,27 @@
     </div>
     <div id="rectangles">
         <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Taco de pibil', 19)">Taco de Pibil</div>
-        </div>
-          <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Gordita de carne', 19)">Gordita de Carne</div>
-            <div class="rectangle" onclick="calculateTotal('Gordita de guiso', 17)">Gordita de guiso</div>
+            <div class="rectangle" data-item="Taco de pibil" data-multiplier="19">Taco de Pibil</div>
         </div>
         <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Bocol de carne', 22)">Bocol de carne</div>
-            <div class="rectangle" onclick="calculateTotal('Bocol de guiso', 20)">Bocol de guiso</div>
+            <div class="rectangle" data-item="Gordita de carne" data-multiplier="19">Gordita de Carne</div>
+            <div class="rectangle" data-item="Gordita de guiso" data-multiplier="17">Gordita de guiso</div>
         </div>
         <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Torta jumbo', 90)">Torta Jumbo</div>
-            <div class="rectangle" onclick="calculateTotal('Torta tradicional', 65)">Torta Tradicional</div>
+            <div class="rectangle" data-item="Bocol de carne" data-multiplier="22">Bocol de carne</div>
+            <div class="rectangle" data-item="Bocol de guiso" data-multiplier="20">Bocol de guiso</div>
         </div>
         <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Pemoles', 50)">Pemoles</div>
-            <div class="rectangle" onclick="calculateTotal('Tampiconada', 35)">Tampiconada</div>
+            <div class="rectangle" data-item="Torta jumbo" data-multiplier="90">Torta Jumbo</div>
+            <div class="rectangle" data-item="Torta tradicional" data-multiplier="65">Torta Tradicional</div>
         </div>
         <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Refresco / Avia', 35)">Refresco / Avia</div>
-            <div class="rectangle" onclick="calculateTotal('Agua Natural / Cafe', 25)">A. Natural / Cafe</div>
+            <div class="rectangle" data-item="Pemoles" data-multiplier="50">Pemoles</div>
+            <div class="rectangle" data-item="Tampiconada" data-multiplier="35">Tampiconada</div>
+        </div>
+        <div class="rectangle-container">
+            <div class="rectangle" data-item="Refresco / Avia" data-multiplier="35">Refresco / Avia</div>
+            <div class="rectangle" data-item="Agua Natural / Cafe" data-multiplier="25">A. Natural / Cafe</div>
         </div>
     </div>
     <div id="output">
@@ -175,7 +175,7 @@
                 <td>Torta Jumbo</td>
                 <td>$90.00</td>
             </tr>
-              <tr>
+            <tr>
                 <td>Torta Tradicional</td>
                 <td>$65.00</td>
             </tr>
@@ -200,24 +200,32 @@
 
     <script>
         let total = 0;
+        let selectedItem = null;
 
-        function calculateTotal(itemName, multiplier) {
-            const inputNumber = document.getElementById('inputNumber');
-            let inputValue = parseFloat(inputNumber.value);
-            if (isNaN(inputValue) || inputValue <= 0) {
-                inputValue = 1;
+        document.getElementById('inputNumber').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                if (selectedItem) {
+                    const inputNumber = document.getElementById('inputNumber');
+                    let inputValue = parseFloat(inputNumber.value);
+                    if (isNaN(inputValue) || inputValue <= 0) {
+                        inputValue = 1;
+                    }
+                    const itemTotal = inputValue * selectedItem.multiplier;
+                    total += itemTotal;
+
+                    const outputList = document.getElementById('outputList');
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `${selectedItem.name} (${inputValue}): $${itemTotal.toFixed(2)} <span class="close-btn" onclick="removeItem(this, ${itemTotal.toFixed(2)})">x</span>`;
+                    outputList.appendChild(listItem);
+
+                    document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+                    inputNumber.value = '';
+                    selectedItem = null;
+                } else {
+                    alert('Por favor, seleccione un producto primero.');
+                }
             }
-            const itemTotal = inputValue * multiplier;
-            total += itemTotal;
-
-            const outputList = document.getElementById('outputList');
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `${itemName} (${inputValue}): $${itemTotal.toFixed(2)} <span class="close-btn" onclick="removeItem(this)">x</span>`;
-            outputList.appendChild(listItem);
-
-            document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
-            inputNumber.value = '';
-        }
+        });
 
         function checkInput() {
             const inputNumber = document.getElementById('inputNumber');
@@ -226,14 +234,10 @@
             }
         }
 
-        function removeItem(element) {
+        function removeItem(element, itemAmount) {
             const listItem = element.parentNode;
-            const amountText = listItem.textContent.split('$')[1];
-            const itemAmount = parseFloat(amountText);
             total -= itemAmount;
-
             listItem.remove();
-
             document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
         }
 
@@ -242,9 +246,9 @@
             rectangle.addEventListener('click', () => {
                 rectangles.forEach(r => r.classList.remove('clicked'));
                 rectangle.classList.add('clicked');
-                setTimeout(() => {
-                    rectangle.classList.remove('clicked');
-                }, 200);
+                const itemName = rectangle.getAttribute('data-item');
+                const multiplier = parseFloat(rectangle.getAttribute('data-multiplier'));
+                selectedItem = { name: itemName, multiplier: multiplier };
             });
         });
     </script>
