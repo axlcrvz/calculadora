@@ -249,6 +249,8 @@
                 const itemName = rectangle.getAttribute('data-item');
                 const multiplier = parseFloat(rectangle.getAttribute('data-multiplier'));
                 selectedItem = { name: itemName, multiplier: multiplier };
+                document.getElementById('inputNumber').value = '';
+                document.getElementById('inputNumber').focus();
             });
         });
     </script>
