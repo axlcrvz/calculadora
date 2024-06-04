@@ -123,21 +123,6 @@
             background-color: #ddd;
         }
 
-        #refreshButton {
-            width: 60px;
-            height: 60px;
-            font-size: 24px;
-            text-align: center;
-            line-height: 60px;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            transition: background-color 0.3s ease;
-        }
-
-        #refreshButton:hover {
-            background-color: #ddd;
-        }
-
         #priceList {
             margin-top: 20px;
             text-align: center;
@@ -193,11 +178,24 @@
                 <div class="rectangle" onclick="calculateTotal('Agua Natural / cafe', 25)">A. Natural / cafe</div>
             </div>
         </div>
-        <div id="output">
-            <h2>Cuenta</h2>
-            <ul id="outputList"></ul>
-            <p id="total">Total: $0.00</p>
+        <div id="numpad">
+            <div class="num-button" onclick="appendNumber(1)">1</div>
+            <div class="num-button" onclick="appendNumber(2)">2</div>
+            <div class="num-button" onclick="appendNumber(3)">3</div>
+            <div class="num-button" onclick="appendNumber(4)">4</div>
+            <div class="num-button" onclick="appendNumber(5)">5</div>
+            <div class="num-button" onclick="appendNumber(6)">6</div>
+            <div class="num-button" onclick="appendNumber(7)">7</div>
+            <div class="num-button" onclick="appendNumber(8)">8</div>
+            <div class="num-button" onclick="appendNumber(9)">9</div>
+            <div class="num-button" onclick="appendNumber(0)">0</div>
+            <div class="num-button" onclick="clearInput()">C</div>
         </div>
+    </div>
+    <div id="output">
+        <h2>Cuenta</h2>
+        <ul id="outputList"></ul>
+        <p id="total">Total: $0.00</p>
     </div>
 
     <div id="priceList">
@@ -258,20 +256,6 @@
         </table>
     </div>
 
-    <div id="numpad">
-        <div class="num-button" onclick="appendNumber(1)">1</div>
-        <div class="num-button" onclick="appendNumber(2)">2</div>
-        <div class="num-button" onclick="appendNumber(3)">3</div>
-        <div class="num-button" onclick="appendNumber(4)">4</div>
-        <div class="num-button" onclick="appendNumber(5)">5</div>
-        <div class="num-button" onclick="appendNumber(6)">6</div>
-        <div class="num-button" onclick="appendNumber(7)">7</div>
-        <div class="num-button" onclick="appendNumber(8)">8</div>
-        <div class="num-button" onclick="appendNumber(9)">9</div>
-        <div class="num-button" onclick="appendNumber(0)">0</div>
-        <div id="refreshButton" onclick="clearInput()">↻</div>
-    </div>
-
     <script>
         let total = 0;
 
@@ -325,8 +309,18 @@
             const inputNumber = document.getElementById('inputNumber');
             inputNumber.value = '';
         }
+
+        const rectangles = document.querySelectorAll('.rectangle');
+        rectangles.forEach(rectangle => {
+            rectangle.addEventListener('click', () => {
+                rectangles.forEach(r => r.classList.remove('clicked'));
+                rectangle.classList.add('clicked');
+                setTimeout(() => {
+                    rectangle.classList.remove('clicked');
+                }, 200);
+            });
+        });
     </script>
 </body>
 
 </html>
-
