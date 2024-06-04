@@ -46,6 +46,7 @@
         #rectangles {
             text-align: center;
             margin-top: 20px;
+            flex: 1;
         }
 
         .rectangle-container {
@@ -104,11 +105,21 @@
             background-color: #f2f2f2;
         }
 
+        #content {
+            display: flex;
+            justify-content: center;
+        }
+
         #numPad {
             display: flex;
             flex-direction: column;
-            margin-top: 20px;
             align-items: center;
+            margin-top: 20px;
+            flex: 0 0 200px; /* Adjust width as necessary */
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 10px;
         }
 
         .numPad-row {
@@ -140,54 +151,56 @@
         <h2>Calculadora</h2>
         <input type="tel" id="inputNumber" placeholder="Cantidad" pattern="[0-9]*" oninput="checkInput()">
     </div>
-    <div id="rectangles">
-        <div class="rectangle-container">
-            <div class="rectangle" data-item="Taco de pibil" data-multiplier="19">Taco de Pibil</div>
+    <div id="content">
+        <div id="rectangles">
+            <div class="rectangle-container">
+                <div class="rectangle" data-item="Taco de pibil" data-multiplier="19">Taco de Pibil</div>
+            </div>
+            <div class="rectangle-container">
+                <div class="rectangle" data-item="Gordita de carne" data-multiplier="19">Gordita de Carne</div>
+                <div class="rectangle" data-item="Gordita de guiso" data-multiplier="17">Gordita de guiso</div>
+            </div>
+            <div class="rectangle-container">
+                <div class="rectangle" data-item="Bocol de carne" data-multiplier="22">Bocol de carne</div>
+                <div class="rectangle" data-item="Bocol de guiso" data-multiplier="20">Bocol de guiso</div>
+            </div>
+            <div class="rectangle-container">
+                <div class="rectangle" data-item="Torta jumbo" data-multiplier="90">Torta Jumbo</div>
+                <div class="rectangle" data-item="Torta tradicional" data-multiplier="65">Torta Tradicional</div>
+            </div>
+            <div class="rectangle-container">
+                <div class="rectangle" data-item="Pemoles" data-multiplier="50">Pemoles</div>
+                <div class="rectangle" data-item="Tampiconada" data-multiplier="35">Tampiconada</div>
+            </div>
+            <div class="rectangle-container">
+                <div class="rectangle" data-item="Refresco / Avia" data-multiplier="35">Refresco / Avia</div>
+                <div class="rectangle" data-item="Agua Natural / Cafe" data-multiplier="25">A. Natural / Cafe</div>
+            </div>
+            <div class="rectangle-container">
+                <div class="rectangle" data-item="Envio" data-first-km="50" data-extra-km="5">Envio</div>
+            </div>
         </div>
-        <div class="rectangle-container">
-            <div class="rectangle" data-item="Gordita de carne" data-multiplier="19">Gordita de Carne</div>
-            <div class="rectangle" data-item="Gordita de guiso" data-multiplier="17">Gordita de guiso</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" data-item="Bocol de carne" data-multiplier="22">Bocol de carne</div>
-            <div class="rectangle" data-item="Bocol de guiso" data-multiplier="20">Bocol de guiso</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" data-item="Torta jumbo" data-multiplier="90">Torta Jumbo</div>
-            <div class="rectangle" data-item="Torta tradicional" data-multiplier="65">Torta Tradicional</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" data-item="Pemoles" data-multiplier="50">Pemoles</div>
-            <div class="rectangle" data-item="Tampiconada" data-multiplier="35">Tampiconada</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" data-item="Refresco / Avia" data-multiplier="35">Refresco / Avia</div>
-            <div class="rectangle" data-item="Agua Natural / Cafe" data-multiplier="25">A. Natural / Cafe</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" data-item="Envio" data-first-km="50" data-extra-km="5">Envio</div>
-        </div>
-    </div>
-    <div id="numPad">
-        <div class="numPad-row">
-            <div class="numPad-btn" onclick="appendNumber(1)">1</div>
-            <div class="numPad-btn" onclick="appendNumber(2)">2</div>
-            <div class="numPad-btn" onclick="appendNumber(3)">3</div>
-        </div>
-        <div class="numPad-row">
-            <div class="numPad-btn" onclick="appendNumber(4)">4</div>
-            <div class="numPad-btn" onclick="appendNumber(5)">5</div>
-            <div class="numPad-btn" onclick="appendNumber(6)">6</div>
-        </div>
-        <div class="numPad-row">
-            <div class="numPad-btn" onclick="appendNumber(7)">7</div>
-            <div class="numPad-btn" onclick="appendNumber(8)">8</div>
-            <div class="numPad-btn" onclick="appendNumber(9)">9</div>
-        </div>
-        <div class="numPad-row">
-            <div class="numPad-btn" onclick="appendNumber(0)">0</div>
-            <div class="numPad-btn" onclick="clearNumber()">C</div>
-            <div class="numPad-btn" onclick="enterNumber()">OK</div>
+        <div id="numPad">
+            <div class="numPad-row">
+                <div class="numPad-btn" onclick="appendNumber(1)">1</div>
+                <div class="numPad-btn" onclick="appendNumber(2)">2</div>
+                <div class="numPad-btn" onclick="appendNumber(3)">3</div>
+            </div>
+            <div class="numPad-row">
+                <div class="numPad-btn" onclick="appendNumber(4)">4</div>
+                <div class="numPad-btn" onclick="appendNumber(5)">5</div>
+                <div class="numPad-btn" onclick="appendNumber(6)">6</div>
+            </div>
+            <div class="numPad-row">
+                <div class="numPad-btn" onclick="appendNumber(7)">7</div>
+                <div class="numPad-btn" onclick="appendNumber(8)">8</div>
+                <div class="numPad-btn" onclick="appendNumber(9)">9</div>
+            </div>
+            <div class="numPad-row">
+                <div class="numPad-btn" onclick="appendNumber(0)">0</div>
+                <div class="numPad-btn" onclick="clearNumber()">C</div>
+                <div class="numPad-btn" onclick="enterNumber()">OK</div>
+            </div>
         </div>
     </div>
     <div id="output">
@@ -247,16 +260,11 @@
                 <td>Agua Natural / Cafe</td>
                 <td>$25.00</td>
             </tr>
-            <tr>
-                <td>Envio</td>
-                <td>$50.00 primer kilometro, $5.00 por km adicional</td>
-            </tr>
         </table>
     </div>
 
     <script>
         let total = 0;
-        let selectedItem = null;
         let inputBuffer = '';
 
         function checkInput() {
@@ -276,31 +284,9 @@
         const rectangles = document.querySelectorAll('.rectangle');
         rectangles.forEach(rectangle => {
             rectangle.addEventListener('click', () => {
-                const itemName = rectangle.getAttribute('data-item');
-                const firstKm = parseFloat(rectangle.getAttribute('data-first-km'));
-                const extraKm = parseFloat(rectangle.getAttribute('data-extra-km'));
-                const multiplier = parseFloat(rectangle.getAttribute('data-multiplier'));
-
-                const inputNumber = parseFloat(document.getElementById('inputNumber').value);
-                let inputValue = isNaN(inputNumber) || inputNumber <= 0 ? 1 : inputNumber;
-
-                let itemTotal = 0;
-
-                if (itemName === 'Envio') {
-                    itemTotal = firstKm + (inputValue - 1) * extraKm;
-                } else {
-                    itemTotal = inputValue * multiplier;
-                }
-
-                total += itemTotal;
-
-                const outputList = document.getElementById('outputList');
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `${itemName} (${inputValue}): $${itemTotal.toFixed(2)} <span class="close-btn" onclick="removeItem(this, ${itemTotal.toFixed(2)})">x</span>`;
-                outputList.appendChild(listItem);
-
-                document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
-                document.getElementById('inputNumber').value = '';
+                rectangles.forEach(r => r.classList.remove('clicked'));
+                rectangle.classList.add('clicked');
+                document.getElementById('inputNumber').focus();
             });
         });
 
