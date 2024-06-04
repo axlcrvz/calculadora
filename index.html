@@ -25,6 +25,7 @@
         #calculator-container {
             display: flex;
             justify-content: space-between;
+            gap: 20px;
         }
 
         #calculator, #numpad {
@@ -108,15 +109,16 @@
         }
 
         #numpad {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            justify-items: center;
+            align-items: center;
         }
 
         .num-button {
             width: 60px;
             height: 60px;
-            margin: 5px;
             font-size: 24px;
             text-align: center;
             line-height: 60px;
@@ -309,6 +311,3 @@
 </body>
 
 </html>
-```
-
-This update organizes the calculator and numpad into a two-column layout, with the calculator on the left and the numpad on the right. The numpad buttons allow users to input numbers directly.
