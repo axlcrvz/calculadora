@@ -137,6 +137,9 @@
             <div class="rectangle" data-item="Refresco / Avia" data-multiplier="35">Refresco / Avia</div>
             <div class="rectangle" data-item="Agua Natural / Cafe" data-multiplier="25">A. Natural / Cafe</div>
         </div>
+        <div class="rectangle-container">
+            <div class="rectangle" data-item="Envio" data-first-km="50" data-extra-km="5">Envio</div>
+        </div>
     </div>
     <div id="output">
         <h2>Cuenta</h2>
@@ -195,6 +198,10 @@
                 <td>Agua Natural / Cafe</td>
                 <td>$25.00</td>
             </tr>
+            <tr>
+                <td>Envio</td>
+                <td>$50.00 primer kilometro, $5.00 por km adicional</td>
+            </tr>
         </table>
     </div>
 
@@ -210,7 +217,17 @@
                     if (isNaN(inputValue) || inputValue <= 0) {
                         inputValue = 1;
                     }
-                    const itemTotal = inputValue * selectedItem.multiplier;
+                    
+                    let itemTotal;
+                    if (selectedItem.name === 'Envio') {
+                        itemTotal = selectedItem.firstKm;
+                        if (inputValue > 1) {
+                            itemTotal += (inputValue - 1) * selectedItem.extraKm;
+                        }
+                    } else {
+                        itemTotal = inputValue * selectedItem.multiplier;
+                    }
+                    
                     total += itemTotal;
 
                     const outputList = document.getElementById('outputList');
@@ -247,8 +264,16 @@
                 rectangles.forEach(r => r.classList.remove('clicked'));
                 rectangle.classList.add('clicked');
                 const itemName = rectangle.getAttribute('data-item');
+                const firstKm = parseFloat(rectangle.getAttribute('data-first-km'));
+                const extraKm = parseFloat(rectangle.getAttribute('data-extra-km'));
                 const multiplier = parseFloat(rectangle.getAttribute('data-multiplier'));
-                selectedItem = { name: itemName, multiplier: multiplier };
+
+                if (itemName === 'Envio') {
+                    selectedItem = { name: itemName, firstKm: firstKm, extraKm: extraKm };
+                } else {
+                    selectedItem = { name: itemName, multiplier: multiplier };
+                }
+
                 document.getElementById('inputNumber').value = '';
                 document.getElementById('inputNumber').focus();
             });
