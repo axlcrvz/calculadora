@@ -22,10 +22,13 @@
             margin: 20px;
         }
 
-        #calculator {
-            width: 100%;
-            text-align: center;
-            position: relative;
+        #calculator-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #calculator, #numpad {
+            width: 48%;
         }
 
         #logo {
@@ -38,7 +41,7 @@
         }
 
         #inputNumber {
-            width: 300px;
+            width: 100%;
             height: 60px;
             font-size: 16px;
         }
@@ -104,47 +107,82 @@
             background-color: #f2f2f2;
         }
 
+        #numpad {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .num-button {
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            font-size: 24px;
+            text-align: center;
+            line-height: 60px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            transition: background-color 0.3s ease;
+        }
+
+        .num-button:hover {
+            background-color: #ddd;
+        }
     </style>
 </head>
 
 <body>
     <img id="logo" src="images/logo.png" alt="Logo">
-    <div id="calculator">
-        <h2>Calculadora</h2>
-        <input type="tel" id="inputNumber" placeholder="Cantidad" pattern="[0-9]*" oninput="checkInput()">
+    <div id="calculator-container">
+        <div id="calculator">
+            <h2>Calculadora</h2>
+            <input type="tel" id="inputNumber" placeholder="Cantidad" pattern="[0-9]*" oninput="checkInput()">
+            <div id="rectangles">
+                <div class="rectangle-container">
+                    <div class="rectangle" onclick="calculateTotal('Taco de pibil', 19)">Taco de pibil</div>
+                    <div class="rectangle" onclick="calculateTotal('Envio', 50, 5)">Envio</div>
+                </div>
+                <div class="rectangle-container">
+                    <div class="rectangle" onclick="calculateTotal('Gordita de carne', 19)">Gordita de carne</div>
+                    <div class="rectangle" onclick="calculateTotal('Gordita de guiso', 17)">Gordita de guiso</div>
+                </div>
+                <div class="rectangle-container">
+                    <div class="rectangle" onclick="calculateTotal('Bocol de carne', 22)">Bocol de carne</div>
+                    <div class="rectangle" onclick="calculateTotal('Bocol de guiso', 20)">Bocol de guiso</div>
+                </div>
+                <div class="rectangle-container">
+                    <div class="rectangle" onclick="calculateTotal('Torta Jumbo', 90)">Torta Jumbo</div>
+                    <div class="rectangle" onclick="calculateTotal('Torta Tradicional', 70)">Torta Tradicional</div>
+                </div>
+                <div class="rectangle-container">
+                    <div class="rectangle" onclick="calculateTotal('Pemoles', 50)">Pemoles</div>
+                    <div class="rectangle" onclick="calculateTotal('Tampiconada', 35)">Tampiconada</div>
+                </div>
+                <div class="rectangle-container">
+                    <div class="rectangle" onclick="calculateTotal('Refresco / avia', 35)">Refresco / avia</div>
+                    <div class="rectangle" onclick="calculateTotal('Agua Natural / cafe', 25)">A. Natural / cafe</div>
+                </div>
+            </div>
+            <div id="output">
+                <h2>Cuenta</h2>
+                <ul id="outputList"></ul>
+                <p id="total">Total: $0.00</p>
+            </div>
+        </div>
+        <div id="numpad">
+            <div class="num-button" onclick="appendNumber(1)">1</div>
+            <div class="num-button" onclick="appendNumber(2)">2</div>
+            <div class="num-button" onclick="appendNumber(3)">3</div>
+            <div class="num-button" onclick="appendNumber(4)">4</div>
+            <div class="num-button" onclick="appendNumber(5)">5</div>
+            <div class="num-button" onclick="appendNumber(6)">6</div>
+            <div class="num-button" onclick="appendNumber(7)">7</div>
+            <div class="num-button" onclick="appendNumber(8)">8</div>
+            <div class="num-button" onclick="appendNumber(9)">9</div>
+            <div class="num-button" onclick="appendNumber(0)">0</div>
+            <div class="num-button" onclick="clearInput()">C</div>
+        </div>
     </div>
-    <div id="rectangles">
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Taco de pibil', 19)">Taco de pibil</div>
-            <div class="rectangle" onclick="calculateTotal('Envio', 50, 5)">Envio</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Gordita de carne', 19)">Gordita de carne</div>
-            <div class="rectangle" onclick="calculateTotal('Gordita de guiso', 17)">Gordita de guiso</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Bocol de carne', 22)">Bocol de carne</div>
-            <div class="rectangle" onclick="calculateTotal('Bocol de guiso', 20)">Bocol de guiso</div>
-        </div>
-         <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Torta Jumbo', 90)">Torta Jumbo</div>
-            <div class="rectangle" onclick="calculateTotal('Torta Tradicional', 70)">Torta Tradicional</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Pemoles', 50)">Pemoles</div>
-            <div class="rectangle" onclick="calculateTotal('Tampiconada', 35)">Tampiconada</div>
-        </div>
-        <div class="rectangle-container">
-            <div class="rectangle" onclick="calculateTotal('Refresco / avia', 35)">Refresco / avia</div>
-            <div class="rectangle" onclick="calculateTotal('Agua Natural / cafe', 25)">A. Natural / cafe</div>
-        </div>
-    </div>
-    <div id="output">
-        <h2>Cuenta</h2>
-        <ul id="outputList"></ul>
-        <p id="total">Total: $0.00</p>
-    </div>
-
     <div id="priceList">
         <h2>Lista de Precios</h2>
         <table>
@@ -172,7 +210,7 @@
                 <td>Bocol de guiso</td>
                 <td>$20.00</td>
             </tr>
-             <tr>
+            <tr>
                 <td>Torta Jumbo</td>
                 <td>$90.00</td>
             </tr>
@@ -184,7 +222,7 @@
                 <td>Pemoles</td>
                 <td>$50.00</td>
             </tr>
-             <tr>
+            <tr>
                 <td>Tampiconada</td>
                 <td>$30.00</td>
             </tr>
@@ -247,6 +285,16 @@
             document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
         }
 
+        function appendNumber(number) {
+            const inputNumber = document.getElementById('inputNumber');
+            inputNumber.value = inputNumber.value + number;
+        }
+
+        function clearInput() {
+            const inputNumber = document.getElementById('inputNumber');
+            inputNumber.value = '';
+        }
+
         const rectangles = document.querySelectorAll('.rectangle');
         rectangles.forEach(rectangle => {
             rectangle.addEventListener('click', () => {
@@ -261,3 +309,6 @@
 </body>
 
 </html>
+```
+
+This update organizes the calculator and numpad into a two-column layout, with the calculator on the left and the numpad on the right. The numpad buttons allow users to input numbers directly.
