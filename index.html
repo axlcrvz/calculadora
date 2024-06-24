@@ -1,326 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Calculadora Mr. Taco</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/logo.png">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axl Cruz - Linktree</title>
     <style>
+        /* Resetting default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global styles */
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        #calculator {
-            width: 100%;
+            background-color: #1a1a1a;
+            color: #ffffff;
             text-align: center;
-            position: relative;
+            padding: 20px;
         }
 
-        #logo {
-            position: absolute;
-            left: 10px;
-            top: 10px;
-            width: 50px;
-            border-radius: 10px;
-            margin-right: 20px;
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
         }
 
-        #inputNumber {
-            width: 300px;
-            height: 60px;
-            font-size: 16px;
+        /* Styles for each service block */
+        .service {
+            margin: 20px auto;
+            max-width: 400px;
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
-        #calculator-container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        #rectangles {
-            text-align: center;
-        }
-
-        .rectangle-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .rectangle {
-            width: 150px;
-            height: 50px;
-            margin: 5px;
-            text-align: center;
-            line-height: 50px;
-            cursor: pointer;
-            border: 1px solid #ccc;
-            overflow: hidden;
-            white-space: nowrap;
-            transition: background-color 0.3s ease;
-        }
-
-        .rectangle.clicked {
-            background-color: lightgreen;
-            transition: background-color 0.01s ease-out;
-        }
-
-        .close-btn {
-            cursor: pointer;
-            font-weight: bold;
-            color: red;
-            margin-left: 5px;
-            display: inline-block;
-        }
-
-        #output {
-            margin-top: 20px;
-        }
-
-        #total {
-            color: white;
-            background-color: green;
-            padding: 10px;
-            display: inline-block;
-        }
-
-        #outputList li {
-            background-color: #ffebcc; /* Very light orange */
-            color: black;
-            padding: 10px;
-            margin: 5px 0;
-            list-style-type: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        #numpad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        .num-button {
-            width: 60px;
-            height: 60px;
+        .service h2 {
             font-size: 24px;
-            text-align: center;
-            line-height: 60px;
-            cursor: pointer;
-            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .service p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .service img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .whatsapp-button {
+            display: inline-block;
+            background-color: #25d366;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
             transition: background-color 0.3s ease;
         }
 
-        .num-button:hover {
-            background-color: #ddd;
-        }
-
-        #priceList {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        #priceList table {
-            margin: 0 auto;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        #priceList th, #priceList td {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        #priceList th {
-            background-color: #f2f2f2;
+        .whatsapp-button:hover {
+            background-color: #128c7e;
         }
     </style>
 </head>
-
 <body>
-    <img id="logo" src="images/logo.png" alt="Logo">
-    <div id="calculator">
-        <h2>Calculadora</h2>
-        <input type="tel" id="inputNumber" placeholder="Cantidad" pattern="[0-9]*" oninput="checkInput()">
-    </div>
-    <div id="calculator-container">
-        <div id="rectangles">
-            <div class="rectangle-container">
-                <div class="rectangle" onclick="calculateTotal('Taco de pibil', 19)">Taco de pibil</div>
-                <div class="rectangle" onclick="calculateTotal('Envio por Km', 50, 5)">Envio por Km</div>
-            </div>
-            <div class="rectangle-container">
-                <div class="rectangle" onclick="calculateTotal('Gordita de carne', 19)">Gordita de carne</div>
-                <div class="rectangle" onclick="calculateTotal('Gordita de guiso', 17)">Gordita de guiso</div>
-            </div>
-            <div class="rectangle-container">
-                <div class="rectangle" onclick="calculateTotal('Bocol de carne', 22)">Bocol de carne</div>
-                <div class="rectangle" onclick="calculateTotal('Bocol de guiso', 20)">Bocol de guiso</div>
-            </div>
-            <div class="rectangle-container">
-                <div class="rectangle" onclick="calculateTotal('Torta Jumbo', 95)">Torta Jumbo</div>
-                <div class="rectangle" onclick="calculateTotal('Torta Tradicional', 70)">Torta Tradicional</div>
-            </div>
-            <div class="rectangle-container">
-                <div class="rectangle" onclick="calculateTotal('Pemoles', 50)">Pemoles</div>
-                <div class="rectangle" onclick="calculateTotal('Tampiconada', 30)">Tampiconada</div>
-            </div>
-            <div class="rectangle-container">
-                <div class="rectangle" onclick="calculateTotal('Refresco o Avia', 35)">Refresco / Avia</div>
-                <div class="rectangle" onclick="calculateTotal('Agua Natural o cafe', 25)">A. Natural / Cafe</div>
-            </div>
-        </div>
-        <div id="numpad">
-            <div class="num-button" onclick="appendNumber(1)">1</div>
-            <div class="num-button" onclick="appendNumber(2)">2</div>
-            <div class="num-button" onclick="appendNumber(3)">3</div>
-            <div class="num-button" onclick="appendNumber(4)">4</div>
-            <div class="num-button" onclick="appendNumber(5)">5</div>
-            <div class="num-button" onclick="appendNumber(6)">6</div>
-            <div class="num-button" onclick="appendNumber(7)">7</div>
-            <div class="num-button" onclick="appendNumber(8)">8</div>
-            <div class="num-button" onclick="appendNumber(9)">9</div>
-            <div class="num-button" onclick="appendNumber(0)">0</div>
-            <div class="num-button" onclick="clearInput()">C</div>
-        </div>
-    </div>
-    <div id="output">
-        <h2>Cuenta</h2>
-        <ul id="outputList"></ul>
-        <p id="total">Total: $0.00</p>
+    <h1>Axl Cruz - Linktree</h1>
+
+    <!-- Beats Production Service -->
+    <div class="service">
+        <h2>Beats Production</h2>
+        <img src="beats.jpg" alt="Beats Production">
+        <p>High-quality beats tailored for aspiring musicians and content creators.</p>
+        <a href="https://wa.me/yourwhatsappnumber" class="whatsapp-button">Get Beats</a>
     </div>
 
-    <div id="priceList">
-        <h2>Lista de Precios</h2>
-        <table>
-            <tr>
-                <th>Producto</th>
-                <th>Precio (MXN)</th>
-            </tr>
-            <tr>
-                <td>Taco de pibil</td>
-                <td>$19.00</td>
-            </tr>
-            <tr>
-                <td>Gordita de carne</td>
-                <td>$19.00</td>
-            </tr>
-            <tr>
-                <td>Gordita de guiso</td>
-                <td>$17.00</td>
-            </tr>
-            <tr>
-                <td>Bocol de carne</td>
-                <td>$22.00</td>
-            </tr>
-            <tr>
-                <td>Bocol de guiso</td>
-                <td>$20.00</td>
-            </tr>
-            <tr>
-                <td>Torta Jumbo</td>
-                <td>$90.00</td>
-            </tr>
-            <tr>
-                <td>Torta Tradicional</td>
-                <td>$70.00</td>
-            </tr>
-            <tr>
-                <td>Pemoles</td>
-                <td>$50.00</td>
-            </tr>
-            <tr>
-                <td>Tampiconada</td>
-                <td>$30.00</td>
-            </tr>
-            <tr>
-                <td>Refresco / Avia</td>
-                <td>$35.00</td>
-            </tr>
-            <tr>
-                <td>Agua Natural / Cafe</td>
-                <td>$25.00</td>
-            </tr>
-            <tr>
-                <td>Envio</td>
-                <td>$50.00 primer kilometro, $5.00 por km adicional</td>
-            </tr>
-        </table>
+    <!-- Vocal Recording Services Service -->
+    <div class="service">
+        <h2>Vocal Recording Services</h2>
+        <img src="recording.jpg" alt="Vocal Recording Services">
+        <p>Professional recording sessions in a minimalist home studio equipped with acoustic panels.</p>
+        <a href="https://wa.me/yourwhatsappnumber" class="whatsapp-button">Record Vocals</a>
     </div>
 
-    <script>
-        let total = 0;
+    <!-- Consulting Service -->
+    <div class="service">
+        <h2>Consulting</h2>
+        <img src="consulting.jpg" alt="Consulting">
+        <p>Personalized advice and guidance on music production and digital marketing strategies.</p>
+        <a href="https://wa.me/yourwhatsappnumber" class="whatsapp-button">Consult Now</a>
+    </div>
 
-        function calculateTotal(itemName, multiplier, extra = 0) {
-            const inputNumber = document.getElementById('inputNumber');
-            let inputValue = parseFloat(inputNumber.value);
-            if (isNaN(inputValue) || inputValue <= 0) {
-                inputValue = 1;
-            }
-            let itemTotal;
-            if (itemName === 'Envio por Km') {
-                itemTotal = multiplier + (inputValue - 1) * extra;
-            } else {
-                itemTotal = inputValue * multiplier;
-            }
-            total += itemTotal;
-
-            const outputList = document.getElementById('outputList');
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `${itemName} (${inputValue}): $${itemTotal.toFixed(2)} <span class="close-btn" onclick="removeItem(this)">x</span>`;
-            outputList.appendChild(listItem);
-
-            document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
-            inputNumber.value = '';
-        }
-
-        function checkInput() {
-            const inputNumber = document.getElementById('inputNumber');
-            if (inputNumber.value < 0) {
-                inputNumber.value = 0;
-            }
-        }
-
-        function removeItem(element) {
-            const listItem = element.parentNode;
-            const amountText = listItem.textContent.split('$')[1];
-            const itemAmount = parseFloat(amountText);
-            total -= itemAmount;
-
-            listItem.remove();
-
-            document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
-        }
-
-        function appendNumber(number) {
-            const inputNumber = document.getElementById('inputNumber');
-            inputNumber.value = inputNumber.value + number;
-        }
-
-        function clearInput() {
-            const inputNumber = document.getElementById('inputNumber');
-            inputNumber.value = '';
-        }
-
-        const rectangles = document.querySelectorAll('.rectangle');
-        rectangles.forEach(rectangle => {
-            rectangle.addEventListener('click', () => {
-                rectangles.forEach(r => r.classList.remove('clicked'));
-                rectangle.classList.add('clicked');
-                setTimeout(() => {
-                    rectangle.classList.remove('clicked');
-                }, 200);
-            });
-        });
-    </script>
 </body>
-
 </html>
